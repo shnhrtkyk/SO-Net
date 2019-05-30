@@ -38,6 +38,14 @@ if __name__=='__main__':
 
         tesetset = ShapeNetLoader(opt.dataroot, 'test', opt)
         testloader = torch.utils.data.DataLoader(tesetset, batch_size=opt.batch_size, shuffle=False, num_workers=opt.nThreads)
+    elif opt.dataset=='mydata':
+        trainset = MyDataLoader(opt.dataroot, 'train', opt)
+        dataset_size = len(trainset)
+        trainloader = torch.utils.data.DataLoader(trainset, batch_size=opt.batch_size, shuffle=True, num_workers=opt.nThreads)
+        print('#training point clouds = %d' % len(trainset))
+
+        tesetset = MyDataLoader(opt.dataroot, 'test', opt)
+        testloader = torch.utils.data.DataLoader(tesetset, batch_size=opt.batch_size, shuffle=False, num_workers=opt.nThreads)
     else:
         raise Exception('Dataset error.')
 
